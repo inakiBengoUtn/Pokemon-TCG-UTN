@@ -1,0 +1,21 @@
+.board {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+  perspective: 250px;
+  perspective-origin: 50% 50%;
+}
+
+.board-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translateZ(10px) rotatex(10deg) translateY(-50px);
+}

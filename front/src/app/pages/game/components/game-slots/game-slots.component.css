@@ -1,0 +1,25 @@
+.slots {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+.banchs-slots {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+.actives-slots {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  gap: 20px;
+}

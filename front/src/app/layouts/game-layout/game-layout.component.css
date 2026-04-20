@@ -1,0 +1,6 @@
+.bg {
+  width: 100vw;
+  height: 100vh;
+
+  box-shadow: inset 0px 10px 20px 10px rgba(0, 0, 0, 0.378);
+}
