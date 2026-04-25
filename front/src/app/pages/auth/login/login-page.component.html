@@ -1,10 +1,57 @@
-<h1>Iniciar sesión</h1>
-<p>Bienvenido de nuevo, inicia sesión para continuar</p>
+<div class="login-container">
+  <header class="header">
+    <h1>Iniciar sesión</h1>
+    <p>Bienvenido de nuevo, inicia sesión para continuar</p>
+  </header>
 
-<form class="form-container">
-  <input type="email" placeholder="Correo electrónico" />
-  <input type="password" placeholder="Contraseña" />
+  <form class="form-container" (submit)="onSubmit($event)" novalidate>
+    <!-- LOIN INPUT -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre de usuario</mat-label>
+      <input matInput type="text" placeholder="Ex. Pika_22" [formField]="loginForm.username" />
 
-  <button>Iniciar sesión</button>
-</form>
-<button>Registrarse</button>
+      @if (loginForm.username().errors().length > 0) {
+        <mat-error>
+          @for (error of loginForm.username().errors(); track $index) {
+            {{ error.message }}
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- PASSWORD INPUT -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Contraseña</mat-label>
+
+      <input
+        matInput
+        [type]="hidePassword() ? 'password' : 'text'"
+        [formField]="loginForm.password"
+      />
+      <button
+        matIconButton
+        matSuffix
+        type="button"
+        (click)="clickTooglePassword($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword()"
+      >
+        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+
+      @if (loginForm.password().errors().length > 0) {
+        <mat-error>
+          @for (error of loginForm.password().errors(); track $index) {
+            {{ error.message }}
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- LOGIN BUTTON -->
+    <button matButton="filled" type="submit">Iniciar sesión</button>
+  </form>
+
+  <!-- REGISTER BUTTON -->
+  <a matButton="tonal" routerLink="/auth/register">Registrarse</a>
+</div>

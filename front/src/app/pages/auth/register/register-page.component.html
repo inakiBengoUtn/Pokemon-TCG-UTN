@@ -1,0 +1,59 @@
+<div class="register-container">
+  <header class="header">
+    <h1>Bienvenido a Pókemon TCG</h1>
+    <p>Registrate para continuar</p>
+  </header>
+
+  <form class="form-container" (submit)="onSubmit($event)" novalidate>
+    <!-- LOIN INPUT -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" placeholder="Ex. Pika_22" [formField]="registerForm.username" />
+
+      @if (registerForm.username().errors().length > 0) {
+        <mat-error>
+          @for (error of registerForm.username().errors(); track $index) {
+            {{ error.message }}
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- PASSWORD INPUT -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+
+      <input
+        matInput
+        [type]="hidePassword() ? 'password' : 'text'"
+        [formField]="registerForm.password"
+      />
+      <button
+        matIconButton
+        matSuffix
+        type="button"
+        (click)="clickTooglePassword($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword()"
+      >
+        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+
+      @if (registerForm.password().errors().length > 0) {
+        <mat-error>
+          @for (error of registerForm.password().errors(); track $index) {
+            {{ error.message }}
+          }
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <!-- LOGIN BUTTON -->
+    <button matButton="filled" type="submit" [disabled]="isLoading()">
+      {{ isLoading() ? 'Cargando...' : 'Registrarse' }}
+    </button>
+  </form>
+
+  <!-- REGISTER BUTTON -->
+  <a matButton="tonal" routerLink="/auth">Iniciar sesion</a>
+</div>

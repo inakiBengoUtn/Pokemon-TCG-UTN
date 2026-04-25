@@ -4,6 +4,7 @@ import com.pokemon.tcg.modules.user.dto.requests.LoginUserRequest;
 import com.pokemon.tcg.modules.user.dto.requests.RegisterUserRequest;
 import com.pokemon.tcg.modules.user.dto.responses.UserLoggedResponse;
 import com.pokemon.tcg.modules.user.dto.responses.UserRegisteredResponse;
+import com.pokemon.tcg.modules.user.exceptions.BadCredentialsException;
 import com.pokemon.tcg.modules.user.exceptions.UserAlreadyExistsException;
 import com.pokemon.tcg.modules.user.models.User;
 import com.pokemon.tcg.modules.user.repo.UserRepo;
@@ -30,19 +31,19 @@ public class AuthService {
         // encriptamos el password
         String password = passwordEncoder.encode(request.getPassword());
 
-        if (repo.existsByUsername(request.getName())) {
+        if (repo.existsByUsername(request.getUsername())) {
             throw new UserAlreadyExistsException();
         }
         // guardamos user
         User user = new User();
-        user.setUsername(request.getName());
+        user.setUsername(request.getUsername());
         user.setPassword(password);
 
         User userSaved = repo.save(user);
 
         // Login al user
         LoginUserRequest loginUser = new LoginUserRequest();
-        loginUser.setUsername(request.getName());
+        loginUser.setUsername(request.getUsername());
         loginUser.setPassword(request.getPassword());
         UserLoggedResponse userLogged = this.login(loginUser);
 
@@ -55,6 +56,10 @@ public class AuthService {
     }
 
     public UserLoggedResponse login(LoginUserRequest request) {
+        if (!repo.existsByUsername(request.getUsername())) {
+            throw new BadCredentialsException();
+        }
+
         Authentication auth = new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword());
         Authentication authenticated = manager.authenticate(auth);
         SecurityContextHolder.getContext().setAuthentication(authenticated);
