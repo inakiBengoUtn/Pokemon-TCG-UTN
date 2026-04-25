@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -28,7 +29,8 @@ public class JWTUtils {
         return buildJWT(subject, claims, expiresAccessToken);
     }
 
-    public String createRefreshToken(String subject, Map<String, Object> claims) {
+    public String createRefreshToken(String subject) {
+        HashMap<String, Object> claims = new HashMap<>();
         claims.put("token_type", "REFRESH_TOKEN");
         return buildJWT(subject, claims, expiresAccessToken);
     }
