@@ -1,0 +1,22 @@
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 300px;
+  margin-bottom: 15vh;
+  border-radius: 1rem;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.loading-icon {
+  width: 50%;
+  height: 50%;
+  background-image: url('/assets/bouncing-squares.svg');
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+}

@@ -2,8 +2,6 @@ package com.pokemon.tcg.common;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,6 +31,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 .toList();
         problemDetail.setProperty("errors", errors);
 
+        logger.info("Argument not valid." + problemDetail.getDetail());
         return createResponseEntity(problemDetail, headers, status, request);
     }
 
@@ -44,7 +43,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 .forStatusAndDetail(HttpStatus.NON_AUTHORITATIVE_INFORMATION, "The token is invalid or has expired.");
         problemDetail.setTitle("INVALID_JWT");
 
-        return createResponseEntity(problemDetail, headers, HttpStatus.NON_AUTHORITATIVE_INFORMATION, request);
+        logger.info("JWT not valid." + problemDetail.getDetail());
+        return createResponseEntity(problemDetail, headers, HttpStatus.UNAUTHORIZED, request);
     }
 
     // Captura todos los errores para que no le llegue al usuario
@@ -57,8 +57,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         problemDetail.setTitle("INTERNAL_SERVER_ERROR");
         problemDetail.setInstance(uri);
 
-        log.error("Internal Server Error  - URI: {} - Message: {}",
-                uri, ex.getMessage(), ex);
+        log.error("Internal Server Error  - URI: {} - Message: {}", uri, ex.getMessage(), ex);
 
         return createResponseEntity(problemDetail, headers, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

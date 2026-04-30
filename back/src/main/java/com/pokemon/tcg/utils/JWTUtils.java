@@ -32,7 +32,7 @@ public class JWTUtils {
     public String createRefreshToken(String subject) {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("token_type", "REFRESH_TOKEN");
-        return buildJWT(subject, claims, expiresAccessToken);
+        return buildJWT(subject, claims, expiresRefreshToken);
     }
 
     // valida que el jwt que nos envian sea valido
@@ -47,11 +47,22 @@ public class JWTUtils {
 
         Date now = new Date();
 
-        return JWT.create()
+        var builder = JWT.create()
                 .withIssuer(this.issuer)
                 .withIssuedAt(now) // fecha de creacion
                 .withExpiresAt(new Date(now.getTime() + Duration.ofHours(expiration).toMillis())) //fecha de expiracion
-                .withSubject(subject)
-                .sign(algorithm);
+                .withSubject(subject);
+
+        if (claims != null) {
+            claims.forEach((key, value) -> {
+                if (value instanceof String v) builder.withClaim(key, v);
+                else if (value instanceof Integer v) builder.withClaim(key, v);
+                else if (value instanceof Boolean v) builder.withClaim(key, v);
+                else if (value instanceof Long v) builder.withClaim(key, v);
+                // Agrega otros tipos si los necesitas
+            });
+        }
+
+        return builder.sign(algorithm);
     }
 }

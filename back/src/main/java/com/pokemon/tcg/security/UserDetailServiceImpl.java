@@ -20,7 +20,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("USER SERVICE AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         User userEntity = userRepo.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("Invalid Credential"));
 

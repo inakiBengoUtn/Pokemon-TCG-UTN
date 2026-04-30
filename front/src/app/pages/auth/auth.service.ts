@@ -5,6 +5,7 @@ import { LoginFormData } from './login/login-page.component';
 import { environment } from '../../../environments';
 import { Observable, tap } from 'rxjs';
 import { RegisterFormData } from './register/register-page.component';
+import { Router } from '@angular/router';
 
 interface LoginResponse {
   access_token: string;
@@ -20,27 +21,28 @@ interface RegisterResponse {
   providedIn: 'root',
 })
 export class AuthService {
+  private router = inject(Router);
   private http = inject(HttpClient);
-  isLoggedIn = signal(false);
 
   loginUser(credentials: LoginFormData): Observable<LoginResponse> {
     // environment its an object, so we need to access the login url.
-    return this.http.post<LoginResponse>(environment.api.auth.login, credentials);
+    return this.http.post<LoginResponse>(environment.api.auth.login, credentials, {
+      withCredentials: true,
+    });
   }
 
   registerUser(credentials: RegisterFormData): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(environment.api.auth.register, credentials).pipe(
-      tap((response) => {
-        if (response.access_token && response.refresh_token) {
-          this.saveSession(response);
-        }
-      }),
-    );
+    return this.http.post<RegisterResponse>(environment.api.auth.register, credentials, {
+      withCredentials: true,
+    });
   }
 
-  private saveSession(tokens: { access_token: string; refresh_token: string }): void {
-    localStorage.setItem('access_token', tokens.access_token);
-    localStorage.setItem('refresh_token', tokens.refresh_token);
-    this.isLoggedIn.set(true);
+  refreshToken() {
+    // El backend leerá la cookie 'refreshToken' automáticamente
+    return this.http.post(environment.api.auth.refresh, {}, { withCredentials: true });
+  }
+
+  logout() {
+    this.router.navigate(['/auth/login']);
   }
 }

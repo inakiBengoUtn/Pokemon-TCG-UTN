@@ -4,7 +4,7 @@ import { GamePage } from './pages/game/game-page.component';
 
 // loadComponent mejora el rendimiento
 export const routes: Routes = [
-  { path: '', component: LobbyPage },
+  // Authentication
   {
     path: 'auth',
     loadComponent: () =>
@@ -22,6 +22,21 @@ export const routes: Routes = [
       },
     ],
   },
+  // Lobby
+  { path: '', component: LobbyPage },
+  // match
+  {
+    path: 'match',
+    loadComponent: () =>
+      import('./layouts/match-layout/match-layout.component').then((m) => m.MatchLayout),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/match/match-page.component').then((m) => m.MatchPage),
+      },
+    ],
+  },
+  // game
   {
     path: 'game',
     loadComponent: () =>

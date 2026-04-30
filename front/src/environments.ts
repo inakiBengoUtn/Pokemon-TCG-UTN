@@ -7,6 +7,7 @@ export const environment = {
     auth: {
       login: API_URL + '/auth/login',
       register: API_URL + '/auth/register',
+      refresh: API_URL + '/auth/refresh',
     },
   },
 };
