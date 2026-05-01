@@ -9,7 +9,7 @@ Se debe tener docker inicializado y lanzar el siguiente comando desde la carpeta
 
 Y ya deberias poder ejecutar el backend.
 
-**Frontend**
+**Frontend** 
 
 Ejecutar `npm i` y para arrancar el servidor local `npm run start`.
 El servidor local deberia estar corriendo en el puerto 4200. 
