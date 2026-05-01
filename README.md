@@ -20,6 +20,8 @@ No usen SockJs, es solo para compatibilidad con navegadores viejos y complica ba
 
 Los enpoint publicos a websocket se hacen en "/topic/..." y los privados a "user/queue/..."
 
+Importante⚠️. La app usa cookies, entonces para que dos usuarios hagan match es requisito necesario tener abiertos dos clientes en dos navegadores distintos o uno en el navegador normal y otro en modo incognito.
+
 ## Backend
 
 Spring Boot 🌱
