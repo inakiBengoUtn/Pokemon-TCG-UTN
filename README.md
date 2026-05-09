@@ -34,15 +34,17 @@ Dependencias
 - PostgreDriver
 - Lombok
 - JWT
-- REDIS
+- REDIS-DATA
+- REDIS OM
+- JEDIS ← para conexion con redis
 
 -----
 Docker 🐳
 
-|Image      | Alias       | Port 
-|-----------|-------------|-------
-|PostgreSql | postgres_db | 5433
-|Redis      | redis_cache | 6379
+|Image       | Alias       | Port 
+|------------|-------------|-------
+|PostgreSql  | postgres_db | 5433
+|Redis-stack | redis_cache | 6379
 
 Glosario de custom errors
 
