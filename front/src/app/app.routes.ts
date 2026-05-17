@@ -36,6 +36,21 @@ export const routes: Routes = [
       },
     ],
   },
+  // deck builder
+  {
+    path: 'deck-builder',
+    loadComponent: () =>
+      import('./layouts/game-layout/game-layout.component').then((m) => m.GameLayout),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/deck-builder/deck-builder-page.component').then(
+            (m) => m.DeckBuilderPageComponent
+          ),
+      },
+    ],
+  },
   // game
   {
     path: 'game',

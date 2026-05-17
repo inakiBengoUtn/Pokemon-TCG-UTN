@@ -1,0 +1,158 @@
+<div class="deck-builder">
+
+  <!-- ========== PANEL IZQUIERDO: catálogo de cartas ========== -->
+  <aside class="card-catalog">
+    <div class="catalog-header">
+      <h2>Catálogo — XY Unlimited</h2>
+
+      @if (!cacheReady()) {
+        <div class="sync-banner">
+          <p>Las cartas no están cargadas en la base de datos.</p>
+          <button class="btn-primary" (click)="syncCards()" [disabled]="syncing()">
+            {{ syncing() ? 'Descargando cartas...' : 'Descargar cartas (xy1)' }}
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters">
+      <input
+        type="text"
+        placeholder="Buscar por nombre..."
+        [(ngModel)]="searchName"
+        (input)="searchCards()"
+        class="search-input"
+      />
+      <select [(ngModel)]="selectedSupertype" (change)="searchCards()" class="type-filter">
+        <option value="">Todos los tipos</option>
+        <option value="POKEMON">Pokémon</option>
+        <option value="ENERGY">Energía</option>
+        <option value="TRAINER">Entrenador</option>
+      </select>
+    </div>
+
+    <!-- Grilla de cartas -->
+    @if (loadingCards()) {
+      <div class="loading">Cargando cartas...</div>
+    } @else {
+      <div class="card-grid">
+        @for (card of cards(); track card.id) {
+          <div
+            class="card-item"
+            [class.disabled]="maxReached(card)"
+            (click)="addCard(card)"
+            [title]="card.name"
+          >
+            <img
+              [src]="card.imageUrlSmall ?? 'assets/pokeball.svg'"
+              [alt]="card.name"
+              loading="lazy"
+            />
+            <div class="card-overlay">
+              <span class="card-name">{{ card.name }}</span>
+              @if (cardQuantityInDeck(card.id) > 0) {
+                <span class="card-qty-badge">×{{ cardQuantityInDeck(card.id) }}</span>
+              }
+            </div>
+          </div>
+        }
+        @empty {
+          <p class="empty-state">
+            {{ cacheReady() ? 'No se encontraron cartas.' : 'Descargá las cartas primero.' }}
+          </p>
+        }
+      </div>
+    }
+  </aside>
+
+  <!-- ========== PANEL DERECHO: deck actual ========== -->
+  <section class="deck-panel">
+
+    <!-- Cabecera del deck -->
+    <div class="deck-header">
+      <input
+        type="text"
+        placeholder="Nombre del mazo..."
+        [(ngModel)]="deckName"
+        class="deck-name-input"
+        maxlength="50"
+      />
+      <div class="deck-actions">
+        <button class="btn-secondary" (click)="newDeck()">Nuevo</button>
+        <button
+          class="btn-primary"
+          (click)="saveDeck()"
+          [disabled]="saving() || !deckName.trim()"
+        >
+          {{ saving() ? 'Guardando...' : (editingDeckId ? 'Actualizar' : 'Guardar') }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Contador y validación -->
+    <div class="deck-counter" [class.complete]="totalCards() === 60" [class.over]="totalCards() > 60">
+      <span class="counter-number">{{ totalCards() }}/60</span>
+      @if (validation().valid) {
+        <span class="valid-badge">✓ Mazo válido</span>
+      }
+    </div>
+
+    <!-- Errores de validación -->
+    @if (!validation().valid && totalCards() > 0) {
+      <ul class="validation-errors">
+        @for (error of validation().errors; track error) {
+          <li>{{ error }}</li>
+        }
+      </ul>
+    }
+
+    <!-- Lista de cartas en el deck -->
+    <div class="deck-list">
+      @for (entry of deckEntries(); track entry.card.id) {
+        <div class="deck-entry">
+          <img [src]="entry.card.imageUrlSmall ?? 'assets/pokeball.svg'" [alt]="entry.card.name" />
+          <div class="entry-info">
+            <span class="entry-name">{{ entry.card.name }}</span>
+            <span class="entry-sub">{{ entry.card.subtypes.join(', ') }}</span>
+          </div>
+          <div class="entry-controls">
+            <button (click)="removeCard(entry.card.id)">−</button>
+            <span>{{ entry.quantity }}</span>
+            <button (click)="addCard(entry.card)" [disabled]="maxReached(entry.card)">+</button>
+            <button class="btn-remove" (click)="removeAllOfCard(entry.card.id)" title="Quitar todas">✕</button>
+          </div>
+        </div>
+      }
+      @empty {
+        <p class="empty-deck">Hacé click en una carta para agregarla al mazo.</p>
+      }
+    </div>
+
+    <!-- Mazos guardados -->
+    <div class="saved-decks">
+      <h3>Mis mazos</h3>
+      @for (deck of savedDecks(); track deck.id) {
+        <div class="saved-deck-item" [class.editing]="editingDeckId === deck.id">
+          <div class="saved-deck-info">
+            <span class="saved-deck-name">{{ deck.name }}</span>
+            <span class="saved-deck-count">{{ deck.totalCards }}/60</span>
+            @if (deck.valid) {
+              <span class="valid-badge small">✓</span>
+            } @else {
+              <span class="invalid-badge small">✗</span>
+            }
+          </div>
+          <div class="saved-deck-actions">
+            <button class="btn-secondary small" (click)="loadDeck(deck.id)">Editar</button>
+            <button class="btn-danger small" (click)="deleteDeck(deck.id)">Eliminar</button>
+          </div>
+        </div>
+      }
+      @empty {
+        <p class="empty-state">No tenés mazos guardados.</p>
+      }
+    </div>
+
+  </section>
+</div>
