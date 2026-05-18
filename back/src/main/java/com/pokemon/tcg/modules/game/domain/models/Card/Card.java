@@ -1,13 +1,11 @@
 package com.pokemon.tcg.modules.game.domain.models.Card;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
-abstract class Card {
+@SuperBuilder
+public abstract class Card {
     private String id;
     private String name;
-    private String supertype;
+    private Supertype supertype;
     private String image;
 }

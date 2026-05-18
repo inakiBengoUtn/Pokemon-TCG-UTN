@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class Ability {
     private String name;
-    private Integer id;
+
 }
