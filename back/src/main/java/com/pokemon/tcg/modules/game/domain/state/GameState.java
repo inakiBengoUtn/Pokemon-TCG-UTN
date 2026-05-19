@@ -13,8 +13,10 @@ import lombok.Setter;
 @Builder
 public class GameState {
     @Id
-    public String gameId;
-    public Integer turnCount;
-    public String activePlayerId;
-    public GamePhase currentPhase;
+    private String gameId;
+    private Integer turnCount;
+    private String activePlayerId;
+    private GamePhase currentPhase;
+    private Player player1;
+    private Player player2;
 }
