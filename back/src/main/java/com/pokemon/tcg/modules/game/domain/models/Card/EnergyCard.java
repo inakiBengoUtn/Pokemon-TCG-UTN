@@ -1,4 +1,16 @@
 package com.pokemon.tcg.modules.game.domain.models.Card;
 
-public class EnergyCard {
+import com.redis.om.spring.annotations.Document;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
+
+@Document("energy")
+@SuperBuilder
+@Getter
+@Setter
+public class EnergyCard extends Card {
+    private List<Subtype> subtypes;
 }

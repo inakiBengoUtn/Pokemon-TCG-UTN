@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PokemonCard extends Card {
-    private List<Stage> stage;
+    private List<Subtype> subtypes;
     private String evolvesTo;
     private String evolveFrom;
     private Integer hp;

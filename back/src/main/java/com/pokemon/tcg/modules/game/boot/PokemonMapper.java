@@ -11,7 +11,7 @@ public class PokemonMapper {
 
     public static PokemonCard toPokemonCard(JsonNode node) {
         Element element = Element.fromString(node.path("types").get(0).asText());
-        List<Stage> stages = new ArrayList<>();
+        List<Subtype> subtypes = new ArrayList<>();
         List<Attack> attacks = new ArrayList<>();
         JsonNode subtypesNode = node.path("subtypes");
         JsonNode attacksNode = node.path("attacks");
@@ -20,9 +20,9 @@ public class PokemonMapper {
         JsonNode resistancesNode = node.path("resistances").get(0);
 
         for (JsonNode subtype : subtypesNode) {
-            Stage s = Stage.fromString(subtype.asText());
+            Subtype s = Subtype.fromString(subtype.asText());
             if (s != null) {
-                stages.add(s);
+                subtypes.add(s);
             }
         }
 
@@ -38,7 +38,7 @@ public class PokemonMapper {
                 .name(node.path("name").asText())
                 .supertype(Supertype.POKEMON)
                 .image(node.path("images").path("small").asText())
-                .stage(stages)
+                .subtypes(subtypes)
                 .evolvesTo(node.path("evolvesTo").asText())
                 .evolveFrom(node.path("evolvesFrom").asText())
                 .hp(node.path("hp").asInt())
