@@ -1,4 +1,4 @@
-package com.pokemon.tcg.modules.game.domain.models.Card;
+package com.pokemon.tcg.modules.game.domain.Card;
 
 import com.redis.om.spring.annotations.Document;
 import lombok.Getter;

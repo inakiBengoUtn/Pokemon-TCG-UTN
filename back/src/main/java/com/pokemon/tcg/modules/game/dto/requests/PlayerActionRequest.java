@@ -1,6 +1,6 @@
 package com.pokemon.tcg.modules.game.dto.requests;
 
-import com.pokemon.tcg.modules.game.domain.models.ActionType;
+import com.pokemon.tcg.modules.game.domain.ActionType;
 import lombok.Getter;
 import lombok.Setter;
 

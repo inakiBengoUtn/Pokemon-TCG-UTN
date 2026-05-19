@@ -47,6 +47,19 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return createResponseEntity(problemDetail, headers, HttpStatus.UNAUTHORIZED, request);
     }
 
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<Object> handleSecurityException(SecurityException ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.FORBIDDEN, "You do not have permission to perform this action.");
+        problemDetail.setTitle("SECURITY");
+
+        String username = request.getUserPrincipal().getName();
+
+        logger.error("The user "+username+" attempted to exploit a vulnerability. Message: "+ problemDetail.getDetail());
+        return createResponseEntity(problemDetail, headers, HttpStatus.UNAUTHORIZED, request);
+    }
+
     // Captura todos los errores para que no le llegue al usuario
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleExceptions(Exception ex,

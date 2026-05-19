@@ -1,6 +1,4 @@
-package com.pokemon.tcg.modules.game.domain.models;
-
-import com.pokemon.tcg.modules.game.domain.models.Card.Stage;
+package com.pokemon.tcg.modules.game.domain;
 
 public enum Element {
     COLORLESS,FIRE,GRASS,WATER,LIGHTNING,PSYCHIC,FIGHTING,DARKNESS,METAL,FAIRY;

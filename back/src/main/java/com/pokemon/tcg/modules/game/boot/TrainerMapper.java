@@ -1,9 +1,9 @@
 package com.pokemon.tcg.modules.game.boot;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.pokemon.tcg.modules.game.domain.models.Card.Subtype;
-import com.pokemon.tcg.modules.game.domain.models.Card.Supertype;
-import com.pokemon.tcg.modules.game.domain.models.Card.TrainerCard;
+import com.pokemon.tcg.modules.game.domain.Card.Subtype;
+import com.pokemon.tcg.modules.game.domain.Card.Supertype;
+import com.pokemon.tcg.modules.game.domain.Card.TrainerCard;
 
 import java.util.ArrayList;
 import java.util.List;

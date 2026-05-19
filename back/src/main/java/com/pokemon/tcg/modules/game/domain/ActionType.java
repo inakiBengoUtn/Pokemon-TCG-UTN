@@ -1,4 +1,4 @@
-package com.pokemon.tcg.modules.game.domain.models;
+package com.pokemon.tcg.modules.game.domain;
 
 public enum ActionType {
     DRAW_CARD,

@@ -1,10 +1,9 @@
 package com.pokemon.tcg.modules.game.boot;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.pokemon.tcg.modules.game.domain.models.Card.Card;
-import com.pokemon.tcg.modules.game.domain.models.Card.EnergyCard;
-import com.pokemon.tcg.modules.game.domain.models.Card.PokemonCard;
-import com.pokemon.tcg.modules.game.domain.models.Card.TrainerCard;
+import com.pokemon.tcg.modules.game.domain.Card.EnergyCard;
+import com.pokemon.tcg.modules.game.domain.Card.PokemonCard;
+import com.pokemon.tcg.modules.game.domain.Card.TrainerCard;
 import com.pokemon.tcg.modules.game.repositories.EnergyCardRepo;
 import com.pokemon.tcg.modules.game.repositories.PokemonCardRepo;
 import com.pokemon.tcg.modules.game.repositories.TrainerCardRepo;

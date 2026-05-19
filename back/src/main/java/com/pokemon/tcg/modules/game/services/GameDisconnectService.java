@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @Service
-public class GameConnectionService {
+@RequiredArgsConstructor
+public class GameDisconnectService {
     private final StringRedisTemplate redisTemplate;
 
-    public void connectToGame(String gameId, Principal principal) {
-        String redisKey = "game:" + gameId;
+    public void disconnectToGame(String gameId, Principal principal) {
+        String redisKey = "game:"+gameId;
         HashOperations<String, String, String> hashOps = redisTemplate.opsForHash();
 
         Map<String, String> gameData = hashOps.entries(redisKey);
@@ -32,16 +32,5 @@ public class GameConnectionService {
             throw new SecurityException("Access denied: you are not a player in this game.");
         }
 
-        String readyField = username.equals(player1) ?"player1_ready" :"player2_ready";
-        hashOps.put(redisKey,readyField,"true");
-
-        gameData = hashOps.entries(redisKey);
-        boolean p1Ready = "true".equals(gameData.get("player1_ready"));
-        boolean p2Ready = "true".equals(gameData.get("player2_ready"));
-
-        if (p1Ready && p2Ready && "WAITING_FOR_READY".equals(gameData.get("status"))) {
-            hashOps.put(redisKey, "status", "SETUP_PHASE");
-
-        }
     }
 }

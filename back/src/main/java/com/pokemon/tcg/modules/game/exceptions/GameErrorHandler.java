@@ -1,4 +1,4 @@
-package com.pokemon.tcg.modules.user.exceptions;
+package com.pokemon.tcg.modules.game.exceptions;
 
 import com.pokemon.tcg.common.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -11,22 +11,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice()
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class UserErrorHandler {
+public class GameErrorHandler {
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExistsException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(
-                ex.getCodeError(),
-                ex.getMessage(),
-                System.currentTimeMillis()
-        );
-
-        return ResponseEntity.status(ex.getHttpStatus())
-                .body(errorResponse);
-    }
-
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErrorResponse> handleBadCredentials(BadCredentialsException ex) {
+    @ExceptionHandler(GameNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExists(GameNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getCodeError(),
                 ex.getMessage(),

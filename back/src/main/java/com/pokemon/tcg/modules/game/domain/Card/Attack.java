@@ -1,6 +1,6 @@
-package com.pokemon.tcg.modules.game.domain.models.Card;
+package com.pokemon.tcg.modules.game.domain.Card;
 
-import com.pokemon.tcg.modules.game.domain.models.Element;
+import com.pokemon.tcg.modules.game.domain.Element;
 import lombok.Builder;
 
 import java.util.List;

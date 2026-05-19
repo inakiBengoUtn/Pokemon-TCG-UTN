@@ -1,4 +1,4 @@
-package com.pokemon.tcg.modules.game.domain.models.Card;
+package com.pokemon.tcg.modules.game.domain.Card;
 
 public enum Stage {
     BASIC,STAGE_1,STAGE_2,MEGA,EX;
