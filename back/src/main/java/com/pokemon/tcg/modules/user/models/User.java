@@ -1,5 +1,6 @@
 package com.pokemon.tcg.modules.user.models;
 
+import com.pokemon.tcg.modules.deck.models.Deck;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,4 +25,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "active_deck_id", unique = true)
+    private Deck activeDeck;
 }

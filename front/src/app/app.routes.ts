@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LobbyPage } from './pages/lobby/lobby-page.component';
 import { GamePage } from './pages/game/game-page.component';
+import { LobbyLayout } from './layouts/lobby-layout/lobby-layout.component';
 
 // loadComponent mejora el rendimiento
 export const routes: Routes = [
@@ -23,7 +24,17 @@ export const routes: Routes = [
     ],
   },
   // Lobby
-  { path: '', component: LobbyPage },
+  {
+    path: '',
+    component: LobbyLayout,
+    children: [
+      { path: '', component: LobbyPage },
+      {
+        path: 'decks',
+        loadComponent: () => import('./pages/lobby/decks/deck-page.component').then((m) => m.DecksPage)
+      }
+    ]
+  },
   // match
   {
     path: 'match',

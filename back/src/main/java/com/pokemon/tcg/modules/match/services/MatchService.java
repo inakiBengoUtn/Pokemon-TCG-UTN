@@ -1,7 +1,5 @@
 package com.pokemon.tcg.modules.match.services;
 
-import com.pokemon.tcg.modules.game.domain.state.GameState;
-import com.pokemon.tcg.modules.game.repositories.GameStateRepo;
 import com.pokemon.tcg.modules.match.dto.response.MatchResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

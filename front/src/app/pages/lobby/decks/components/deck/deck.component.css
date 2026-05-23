@@ -1,0 +1,158 @@
+.deck-card {
+  position: relative;
+  width: 11rem;
+  height: 15rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.deck-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Estado Seleccionado */
+.deck-card.selected {
+  border: 3px solid #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Badge de Selección */
+.select-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ffd700;
+  color: #1a1a1a;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.badge-icon {
+  font-size: 1.3rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  line-height: 1.3rem;
+  font-weight: bold;
+}
+
+/* Imagen de portada de la carta */
+.card-cover-container {
+  width: 100%;
+  height: 9rem;
+  overflow: hidden;
+  background: #2a2a2a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-cover {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center 20%;
+  transition: transform 0.5s ease;
+}
+
+.deck-card:hover .card-cover {
+  transform: scale(1.08);
+}
+
+/* Información del Mazo */
+.card-info {
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.deck-name {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deck-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+/* Acciones del Mazo */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.action-btn {
+  width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  line-height: 28px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.action-btn mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+}
+
+.edit-btn:hover {
+  background: #2196f3 !important;
+  border-color: #2196f3 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.4) !important;
+}
+
+.delete-btn:hover {
+  background: #f44336 !important;
+  border-color: #f44336 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(244, 67, 54, 0.4) !important;
+}
+
+/* Animación de entrada para el badge */
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

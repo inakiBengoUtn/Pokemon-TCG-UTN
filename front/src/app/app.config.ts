@@ -7,6 +7,7 @@ import { authInterceptor } from './shared/interceptors/refresh-token.interceptor
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),

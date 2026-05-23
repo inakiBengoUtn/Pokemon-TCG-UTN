@@ -3,6 +3,7 @@ package com.pokemon.tcg.modules.user.services;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.pokemon.tcg.modules.deck.services.CreateDefaultDeckService;
 import com.pokemon.tcg.modules.user.dto.requests.LoginUserRequest;
 import com.pokemon.tcg.modules.user.dto.requests.RegisterUserRequest;
 import com.pokemon.tcg.modules.user.dto.responses.RefreshTokenResponse;
@@ -14,7 +15,6 @@ import com.pokemon.tcg.modules.user.models.User;
 import com.pokemon.tcg.modules.user.repo.UserRepo;
 import com.pokemon.tcg.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,6 +31,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JWTUtils jwtUtils;
     private final UserRepo repo;
+    private final CreateDefaultDeckService createDeckService;
 
     public UserRegisteredResponse register(RegisterUserRequest request) {
         // encriptamos el password
@@ -45,6 +46,7 @@ public class AuthService {
         user.setPassword(password);
 
         User userSaved = repo.save(user);
+        createDeckService.createDefaultDeck(userSaved);
 
         // Login al user
         LoginUserRequest loginUser = new LoginUserRequest();

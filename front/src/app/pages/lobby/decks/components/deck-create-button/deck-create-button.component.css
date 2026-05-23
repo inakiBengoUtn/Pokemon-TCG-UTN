@@ -1,0 +1,59 @@
+.create-button {
+  width: 11rem;
+  height: 15rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 3px dashed rgba(203, 203, 203, 0.5);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: #cbb380;
+  box-sizing: border-box;
+}
+
+.create-button:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffd700;
+  color: #ffd700;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
+}
+
+.create-button:active {
+  transform: translateY(-2px);
+}
+
+.icon-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.create-button:hover .icon-container {
+  background: rgba(255, 215, 0, 0.2);
+}
+
+.add-icon {
+  font-size: 2.2rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+}
+
+.label {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

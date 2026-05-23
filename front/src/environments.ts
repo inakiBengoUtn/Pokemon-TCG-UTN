@@ -9,5 +9,6 @@ export const environment = {
       register: API_URL + '/auth/register',
       refresh: API_URL + '/auth/refresh',
     },
+    deck: API_URL + "/decks"
   },
 };

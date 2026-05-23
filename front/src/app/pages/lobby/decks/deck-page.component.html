@@ -1,0 +1,15 @@
+<div class="container">
+  <!-- Botón principal para la creación de un nuevo mazo (ocupa la primera posición de la grilla) -->
+  <deck-create-button (onCreate)="handleCreateDeck()"></deck-create-button>
+
+  <!-- Lista interactiva de mazos cargados desde el servicio -->
+  @for (deckItem of decks(); track deckItem.id) {
+    <deck
+      [deck]="deckItem"
+      [isSelected]="deckItem.id === selectedDeckId()"
+      (onSelect)="handleSelectDeck($event)"
+      (onEdit)="handleEditDeck($event)"
+      (onDelete)="handleDeleteDeck($event)"
+    ></deck>
+  }
+</div>

@@ -7,4 +7,4 @@ import { RouterLink } from '@angular/router';
   styleUrl: './lobby-page.component.css',
   imports: [RouterLink],
 })
-export class LobbyPage {}
+export class LobbyPage { }
