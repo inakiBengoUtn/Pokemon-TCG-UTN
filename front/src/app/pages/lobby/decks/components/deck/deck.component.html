@@ -1,17 +1,17 @@
 <div class="deck-card" [class.selected]="isSelected" (click)="select($event)" role="button" tabindex="0">
   @if (isSelected) {
-    <div class="select-badge" aria-label="Mazo seleccionado">
-      <mat-icon class="badge-icon">check_circle</mat-icon>
-    </div>
+  <div class="select-badge" aria-label="Mazo seleccionado">
+    <mat-icon class="badge-icon">check_circle</mat-icon>
+  </div>
   }
-  
+
   <div class="card-cover-container">
-    <div class="card-cover" [style.background-image]="'url(' + deck.coverCardImage + ')'"></div>
+    <div class="card-cover" [style.background-image]="'url(' + deck.cover_image + ')'"></div>
   </div>
 
   <div class="card-info">
     <h3 class="deck-name">{{ deck.name }}</h3>
-    <span class="deck-count">{{ deck.cardCount }} Cartas</span>
+    <span class="deck-count">{{ deck.card_count }} Cartas</span>
   </div>
 
   <div class="card-actions">

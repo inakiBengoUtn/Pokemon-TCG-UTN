@@ -5,8 +5,8 @@ import { environment } from '../../../../../environments'
 export interface Deck {
   id: string;
   name: string;
-  cardCount: number;
-  coverCardImage: string;
+  card_count: number;
+  cover_image: string;
 }
 
 @Injectable({
@@ -21,26 +21,7 @@ export class DeckService {
   }
 
   // Estado privado con señales reactivas
-  private _decks = signal<Deck[]>([
-    {
-      id: '1',
-      name: 'Charizard Pyroclast',
-      cardCount: 60,
-      coverCardImage: 'https://images.pokemontcg.io/sv3/125_hires.png',
-    },
-    {
-      id: '2',
-      name: 'Blastoise Torrential',
-      cardCount: 60,
-      coverCardImage: 'https://images.pokemontcg.io/sv3/120_hires.png',
-    },
-    {
-      id: '3',
-      name: 'Venusaur Overgrowth',
-      cardCount: 60,
-      coverCardImage: 'https://images.pokemontcg.io/sv3/3_hires.png',
-    },
-  ]);
+  private _decks = signal<Deck[]>([]);
 
   private _selectedDeckId = signal<string | null>('1'); // Por defecto seleccionamos el primero
 
@@ -51,13 +32,13 @@ export class DeckService {
   /**
    * Carga los mazos simulando una petición HTTP.
    */
-  async loadDecks(): Promise<void> {
-    return new Promise((resolve) => {
-      // Simula latencia de red de 300ms
-      setTimeout(() => {
-        resolve();
-      }, 300);
-    });
+  async loadDecks() {
+    this.http.get<Deck[]>(environment.api.deck)
+      .subscribe((res) => {
+        this._decks.set(res)
+        console.log(res)
+        this._selectedDeckId.set(res[0].id)
+      });
   }
 
   /**
@@ -82,27 +63,6 @@ export class DeckService {
    * Crea un nuevo mazo (simulado).
    */
   async createDeck(name: string): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Imágenes de portada aleatorias para nuevos mazos
-        const covers = [
-          'https://images.pokemontcg.io/sv3/125_hires.png',
-          'https://images.pokemontcg.io/sv3/120_hires.png',
-          'https://images.pokemontcg.io/sv3/3_hires.png',
-        ];
-        const randomCover = covers[Math.floor(Math.random() * covers.length)];
-
-        const newDeck: Deck = {
-          id: Math.random().toString(36).substring(2, 9),
-          name: name || 'Nuevo Mazo',
-          cardCount: 60,
-          coverCardImage: randomCover,
-        };
-
-        this._decks.update((current) => [...current, newDeck]);
-        resolve();
-      }, 300);
-    });
   }
 
   /**
