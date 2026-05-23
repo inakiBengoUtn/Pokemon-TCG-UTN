@@ -1,6 +1,7 @@
 package com.pokemon.tcg.modules.deck.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pokemon.tcg.modules.catalog.models.Supertype;
 import com.pokemon.tcg.modules.catalog.repositories.PokemonCardRepo;
 import com.pokemon.tcg.modules.catalog.models.PokemonCard;
 import com.pokemon.tcg.modules.deck.dto.responses.DeckResponse;
@@ -32,12 +33,15 @@ public class DeckService {
     private DeckResponse mapToDeckResponse(Deck deck) {
         DeckResponse deckResponse = new DeckResponse();
         // extraemos el primer deckCard que sea pokemon del mazo
-        DeckCard card = deck.getCards().getFirst();
-        String cardId = card.getCard().getId();
+        DeckCard card = deck.getCards().stream()
+                .filter(c -> Supertype.POKEMON.equals(c.getCard().getSupertype()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Not found pokemon card in deck id "+deck.getId()));
+        String key = card.getCard().getId();
 
         // buscamos la carta en redis
-        PokemonCard pokemonCard = pokemonCardRepo.findById(cardId)
-                .orElseThrow(() -> new RuntimeException("Not found pokemon "+cardId+" in redis." ));
+        PokemonCard pokemonCard = pokemonCardRepo.findById(key)
+                .orElseThrow(() -> new RuntimeException("Not found pokemon whit id "+key+" in redis." ));
 
         deckResponse.setCoverImage(pokemonCard.getImage());
         deckResponse.setName(deck.getName());
