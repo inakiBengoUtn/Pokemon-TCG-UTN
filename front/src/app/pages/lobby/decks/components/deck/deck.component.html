@@ -15,9 +15,9 @@
   </div>
 
   <div class="card-actions">
-    <button mat-mini-fab class="action-btn edit-btn" (click)="edit($event)" aria-label="Editar mazo">
+    <a mat-mini-fab class="action-btn edit-btn" routerLink="/decks/{{ deck.id }}" aria-label="Editar mazo">
       <mat-icon>edit</mat-icon>
-    </button>
+    </a>
     <button mat-mini-fab class="action-btn delete-btn" (click)="delete($event)" aria-label="Eliminar mazo">
       <mat-icon>delete</mat-icon>
     </button>

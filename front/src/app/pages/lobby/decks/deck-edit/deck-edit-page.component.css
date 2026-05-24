@@ -1,0 +1,13 @@
+.section {
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.deck {
+  height: 30vh;
+}
+
+.cards {
+  height: 50vh;
+}

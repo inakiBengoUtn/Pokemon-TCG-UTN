@@ -1,0 +1,29 @@
+header {
+    height: fit-content;
+    width: 100%;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: rgb(32, 32, 32);
+    border-bottom: red 4px solid;
+
+    .image-container {
+        height: 3rem;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.text {
+    color: rgb(215, 215, 215);
+    font-size: 1rem;
+}
+
+input {
+    border: none;
+    background-color: transparent;
+}

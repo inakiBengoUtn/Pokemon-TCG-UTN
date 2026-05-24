@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../../environments'
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 export interface Deck {
   id: string;
@@ -14,49 +16,45 @@ export interface Deck {
 })
 export class DeckService {
   private http = inject(HttpClient);
-
-  getDecks(): void {
-    this.http.get<Deck[]>(environment.api.deck)
-      .subscribe((res) => console.log(res));
-  }
+  private route = inject(ActivatedRoute)
 
   // Estado privado con señales reactivas
   private _decks = signal<Deck[]>([]);
-
+  private _deckEdit = signal<Deck | null>(null);
   private _selectedDeckId = signal<string | null>('1'); // Por defecto seleccionamos el primero
 
   // Exponer señales públicas de solo lectura
   decks = this._decks.asReadonly();
+  deckEdit = this._deckEdit.asReadonly();
   selectedDeckId = this._selectedDeckId.asReadonly();
 
   /**
    * Carga los mazos simulando una petición HTTP.
    */
   async loadDecks() {
-    this.http.get<Deck[]>(environment.api.deck)
+    this.http.get<Deck[]>(environment.api.deck.get)
       .subscribe((res) => {
         this._decks.set(res)
-        console.log(res)
         this._selectedDeckId.set(res[0].id)
       });
+  }
+
+  /**
+   * Obtiene el Deck actual basado en el ID de la URL activa.
+   * Se actualiza automáticamente cada vez que el ID cambia.
+   */
+  getCurrentDeck(id: string) {
+    this.http.get<Deck>(`${environment.api.deck.getById}/${id}`)
+      .subscribe((res) => {
+        this._deckEdit.set(res)
+        console.log(res)
+      })
   }
 
   /**
    * Selecciona un mazo activo enviando la información al backend (simulado).
    */
   async selectDeck(id: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const deckExists = this._decks().some((d) => d.id === id);
-        if (deckExists) {
-          this._selectedDeckId.set(id);
-          console.log(`[DeckService] Mazo activo seleccionado en el backend: ${id}`);
-          resolve();
-        } else {
-          reject(new Error('Mazo no encontrado'));
-        }
-      }, 200);
-    });
   }
 
   /**
@@ -69,35 +67,11 @@ export class DeckService {
    * Edita el nombre de un mazo existente (simulado).
    */
   async updateDeck(id: string, name: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const exists = this._decks().some((d) => d.id === id);
-        if (exists) {
-          this._decks.update((current) =>
-            current.map((d) => (d.id === id ? { ...d, name } : d))
-          );
-          resolve();
-        } else {
-          reject(new Error('Mazo no encontrado'));
-        }
-      }, 200);
-    });
   }
 
   /**
    * Elimina un mazo (simulado).
    */
   async deleteDeck(id: string): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        this._decks.update((current) => current.filter((d) => d.id !== id));
-        // Si el mazo eliminado era el seleccionado, limpiamos la selección
-        if (this._selectedDeckId() === id) {
-          const remaining = this._decks();
-          this._selectedDeckId.set(remaining.length > 0 ? remaining[0].id : null);
-        }
-        resolve();
-      }, 200);
-    });
   }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice()
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(3)
 public class GameErrorHandler {
 
     @ExceptionHandler(GameNotFoundException.class)

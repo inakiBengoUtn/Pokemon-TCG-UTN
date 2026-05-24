@@ -1,6 +1,6 @@
 package com.pokemon.tcg.modules.user.models;
 
-import com.pokemon.tcg.modules.deck.models.Deck;
+import com.pokemon.tcg.modules.catalog.models.Deck;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

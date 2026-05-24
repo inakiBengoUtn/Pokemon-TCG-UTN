@@ -2,12 +2,13 @@ import { Component, Input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Deck } from '../../services/deck.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'deck',
   templateUrl: './deck.component.html',
   styleUrl: './deck.component.css',
-  imports: [MatButtonModule, MatIcon],
+  imports: [MatButtonModule, MatIcon, RouterLink],
 })
 export class DeckComponent {
   // Inputs

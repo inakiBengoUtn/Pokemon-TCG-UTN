@@ -3,7 +3,7 @@ package com.pokemon.tcg.modules.user.services;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.pokemon.tcg.modules.deck.services.CreateDefaultDeckService;
+import com.pokemon.tcg.modules.catalog.services.CreateDefaultDeckService;
 import com.pokemon.tcg.modules.user.dto.requests.LoginUserRequest;
 import com.pokemon.tcg.modules.user.dto.requests.RegisterUserRequest;
 import com.pokemon.tcg.modules.user.dto.responses.RefreshTokenResponse;

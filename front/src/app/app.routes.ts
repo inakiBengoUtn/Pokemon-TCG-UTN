@@ -31,7 +31,11 @@ export const routes: Routes = [
       { path: '', component: LobbyPage },
       {
         path: 'decks',
-        loadComponent: () => import('./pages/lobby/decks/deck-page.component').then((m) => m.DecksPage)
+        loadComponent: () => import('./pages/lobby/decks/list-decks/deck-list-page.component').then((m) => m.DecksListPage),
+      },
+      {
+        path: 'decks/:id',
+        loadComponent: () => import('./pages/lobby/decks/deck-edit/deck-edit-page.component').then((m) => m.DeckEditPage),
       }
     ]
   },

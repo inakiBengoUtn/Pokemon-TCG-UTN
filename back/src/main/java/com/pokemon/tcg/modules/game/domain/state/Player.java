@@ -1,7 +1,7 @@
 package com.pokemon.tcg.modules.game.domain.state;
 
-import com.pokemon.tcg.modules.catalog.models.Card;
-import com.pokemon.tcg.modules.catalog.models.PokemonCard;
+import com.pokemon.tcg.modules.catalog.models.card.Card;
+import com.pokemon.tcg.modules.catalog.models.card.PokemonCard;
 import lombok.Builder;
 
 import java.util.List;
